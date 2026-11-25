@@ -21,7 +21,7 @@ EXPOSE 22
 EXPOSE 8080
 
 # VULN: Using ADD instead of COPY for local file (Checkov CKV_DOCKER_4)
-ADD ./pom.xml /tmp/pom.xml
+Line 24: COPY ./pom.xml /tmp/pom.xml
 
 COPY --from=build /build/target/*.jar /app/app.jar
 
