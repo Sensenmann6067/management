@@ -37,9 +37,10 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Scan Terraform security configuration
+      - name: Scan infrastructure security
         uses: aquasecurity/trivy-action@v0.36.0
         with:
+          version: 'v0.76.2'
           scan-type: config
           scan-ref: .
           format: table
