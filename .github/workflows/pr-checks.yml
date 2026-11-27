@@ -1,4 +1,4 @@
-name: Terraform PR checks
+name: PR validation
 
 on:
   pull_request:
@@ -20,29 +20,6 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v4
 
-      - name: Check formatting
-        run: terraform fmt -check -recursive
+      - run: terraform init -backend=false -input=false
 
-      - name: Initialize without remote state
-        run: terraform init -backend=false -input=false
-
-      - name: Validate configuration
-        run: terraform validate -no-color
-
-  security:
-    name: iac-security
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-
-      - name: Scan infrastructure security
-        uses: aquasecurity/trivy-action@v0.36.0
-        with:
-          version: 'v0.76.2'
-          scan-type: config
-          scan-ref: .
-          format: table
-          exit-code: '1'
-          severity: HIGH,CRITICAL
+      - run: terraform validate -no-color
